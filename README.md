@@ -3,19 +3,19 @@
 ![](https://img.alicdn.com/tfs/TB1nNtcelCw3KVjSZFuXXcAOpXa-881-465.png)
 ````jsx
 <Shell> 
-  <Shell.Branding />
+  <Shell.Branding /> Box(row)
   <Shell.Navgation/>
-  <Shell.Action />
-  <Shell.LocaleNavgation />
-  <Shell.Ancillary />
-  <Shell.Toolbar />
+  <Shell.Action /> Box(row)
+  <Shell.LocaleNavgation /> Box(column)
+  <Shell.Ancillary /> Box(column)
+  <Shell.Toolbar /> Box(column)
     <Shell.ToolbarItem icon=""  label="" onXXX="" /> 
-  <Shell.AppBar />
-  <Shell.Content />
-  <Shell.Footer /> 
+  <Shell.AppBar /> Box(column)
+  <Shell.Content /> Grid
+  <Shell.Footer /> Box(column)
 </Shell>
 ````
-其中 `<Shell.Content />` 采用Grid布局， 其他均为 Flex布局
+其中 `<Shell.Content />` 采用Grid布局， 其他均为 Flex布局
 
 ## API
 ### Shell
@@ -28,8 +28,8 @@
 ### Shell.Navgation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| miniable   | 是否收缩到只有icon的状态    | Boolean         | false     |
-| collaspe   | 是否完全折叠    | Boolean         | false     |
+| miniable   | 是否折叠到只有icon的状态    | Boolean         | false     |
+| collaspe   | 是否折叠    | Boolean         | false     |
 | direction  | 方向<br><br>**可选值**:<br>'hoz', 'ver'    | Enum         |  hoz    |
 
 ### Shell.LocaleNavgation
