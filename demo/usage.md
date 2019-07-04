@@ -1,6 +1,7 @@
 ---
 title: Simple Usage
 order: 1
+importStyle: true
 ---
 
 本 Demo 演示一行文字的用法。
@@ -9,12 +10,117 @@ order: 1
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Shell from '@alifd/shell';
+import { Menu, Search, Icon, Nav, Breadcrumb, Card } from '@alifd/next';
+// todo  改成外网包
+import '@alife/theme-451/dist/next.css';
+
+const { SubNav, Item, Group, Divider } = Nav;
+
+const Block = (props) => {
+  return <div className="block"></div>;
+}
 
 class App extends Component {
+  state = {}
+  componentDidMount() {
+    this.handleResize(window.innerWidth);
+
+    window.addEventListener("resize", (e) => {
+      this.handleResize(e.target.window.innerWidth);
+    });
+  }
+
+  handleResize = width => {
+    if (width < 1024) {
+      device = 'phone';
+    } else if (width > 1280) {
+      device = 'desktop';
+    } else {
+      device = 'pad'
+    }
+
+    if (!(device === this.state.device)) {
+      this.setState({
+        device
+      });
+    }
+  }
+
+
   render() {
     return (
-      <div>
-        <Shell />
+      <div className="root">
+        <Shell className={"iframe-hack"} device={this.state.device}>
+          <Shell.Branding>
+            <div className="rectangular"></div>
+            <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
+          </Shell.Branding>
+          <Shell.Navigation direction="hoz">
+            <Search key="2" shape="simple" type="dark" palceholder="Search" style={{width: '200px'}}/>
+          </Shell.Navigation>
+          <Shell.Action>
+            <Icon type="calendar" />
+            <img src="https://cdog01.alibaba-inc.com/aliwork/tUd4i7IDM8%2FuALhbY3H72kbPrqsVgoZ2GiVxZLXTfxB%2B91Z5dVJX5JSCGrUYBbnp?e=eIxQ5SR3%2BXODJpmDlfdb6A%3D%3D" className="avatar" alt="用户头像" />
+            <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
+          </Shell.Action>
+
+          <Shell.Navigation>
+            <Nav  type="primary" embeddable>
+              <Nav.Item icon="Item">Nav Item 1</Nav.Item>
+              <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
+              <Nav.Item icon="Item2">Nav Item 3</Nav.Item>
+              <Nav.Item icon="Item3">Nav Item 4</Nav.Item>
+              <Nav.Item icon="Item4">Nav Item 5</Nav.Item>
+              <Nav.Item icon="Item5">Nav Item 6</Nav.Item>
+              <Nav.Item icon="Item6">Nav Item 7</Nav.Item>
+          </Nav>
+          </Shell.Navigation>
+
+          <Shell.LocalNavigation>
+            <Nav embeddable>
+              <Nav.SubNav label="Local Nav1">
+                <Item>Local Nav1</Item>
+              </Nav.SubNav>
+              <Nav.SubNav label="Local Nav2">
+                <Item>Local Nav2</Item>
+              </Nav.SubNav>
+              <Nav.SubNav label="Local Nav3">
+                <Item>Local Nav3</Item>
+              </Nav.SubNav>
+              <Item>Local Nav4</Item>
+              <Item>Local Nav5</Item>
+              <Item>Local Nav6</Item>
+              <Item>Local Nav7</Item>
+              <Item>Local Nav8</Item>
+            </Nav>
+          </Shell.LocalNavigation>
+
+          <Shell.Content>
+            <div style={{minHeight: 500, background: '#fff'}}></div>
+          </Shell.Content>
+          <Shell.Footer>
+            <span>Alibaba Fusion</span>
+            <span>@ 2019 Alibaba Piecework 版权所有</span>
+          </Shell.Footer>
+          
+          <Shell.Ancillary>
+            
+          </Shell.Ancillary>
+          <Shell.ToolDock>
+            <Shell.ToolDockItem>
+              <Icon type="search" />
+            </Shell.ToolDockItem>
+            <Shell.ToolDockItem>
+              <Icon type="calendar" />
+            </Shell.ToolDockItem>
+            <Shell.ToolDockItem>
+              <Icon type="atm" />
+            </Shell.ToolDockItem>
+            <Shell.ToolDockItem>
+              <Icon type="account" />              
+            </Shell.ToolDockItem>
+          </Shell.ToolDock>
+        </Shell>
       </div>
     );
   }
@@ -23,4 +129,74 @@ class App extends Component {
 ReactDOM.render((
   <App />
 ), mountNode);
+````
+````css
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.rectangular {
+  width: 32px;
+  height: 32px;
+  background: #555;
+}
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.iframe-hack {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+}
+.block {
+  display: block;
+  width: 80px;
+  min-height: 320px;
+  border: 1px solid #333;
+  background: #ddd;
+  margin: 20px auto;
+}
+.fusion-shell-action .next-icon {
+  margin: 0 30px;
+  color: #fff;
+}
+.container .fusion-shell ul {
+  margin: 0;
+}
+.demo-list {
+  display: none;
+}
+
+.next-menu-item.next-disabled .next-menu-item-text > a {
+  background: initial;
+}
+.fusion-shell-header .fusion-shell-navigation {
+  margin: 0;
+}
+.fusion-shell-header {
+  border-bottom: 0;
+}
+.fusion-shell-main .fusion-shell-footer {
+  background: transparent;
+  text-align: left;
+  line-height: 25px;
+  font-family: AlibabaSans-Bold;
+  font-size: 16px;
+  color: #CCCCCC;
+  min-height: 48px;
+
+  padding-bottom: 20px;
+}
+.fusion-shell-aside .fusion-shell-localnavigation.fusion-shell-collapse .next-nav.next-ver .next-menu-item{
+  padding: 0;
+}
 ````

@@ -1,6 +1,6 @@
 {
-  "name": "@alifd/shell",
-  "version": "1.0.0",
+  "name": "@alife/shell",
+  "version": "1.0.1",
   "description": "layout shell",
   "files": [
     "demo/",
@@ -21,12 +21,16 @@
     "component"
   ],
   "dependencies": {
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.5.8",
+    "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {
+    "@alifd/next": "^1.15.10",
+    "@alife/theme-451": "^0.2.1",
     "ice-plugin-component": "^0.1.1",
     "ice-plugin-fusion": "^0.1.4",
     "ice-scripts": "^2.0.0",
+    "moment": "^2.24.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0"
   },
@@ -37,5 +41,6 @@
     "name": "shell",
     "title": "shell",
     "categories": []
-  }
+  },
+  "homepage": "https://unpkg.alibaba-inc.com/@alife/shell@0.0.1/build/index.html"
 }

@@ -1,4 +1,281 @@
-/* write style here */
-.shell {
+@charset "UTF-8";
 
+@import 'scss/variable';
+
+#{$shell-prefix} {
+    position: relative;
+    
+    &-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: $shell-header-height;
+        background: $shell-header-background;
+        border-bottom: $shell-header-divider;
+        box-shadow: $shell-header-shadow;
+        padding: 0 $shell-header-paddingLeft;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 9;
+
+        .dock-trigger,
+        .nav-trigger {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+        }
+
+        .nav-trigger {
+            margin-right: 10px;
+        }
+        .dock-trigger {
+            margin-left: 10px;
+        }
+
+        #{$shell-prefix}-navigation {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: $shell-navigation-hoz-align;
+            height: $shell-header-height;
+            line-height: $shell-header-height;
+            margin: 0 $shell-navigation-hoz-marginLeft;
+        }
+        #{$shell-prefix}-branding {
+            display: flex;
+            align-items: center;
+        }
+        #{$shell-prefix}-action {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &-sub-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    &-main {
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        height: calc(100vh - #{$shell-header-height});
+        box-sizing: content-box;
+        background: $shell-content-background;
+        overflow: auto;
+        transition: all .2s $ease;
+
+        #{$shell-prefix}-appbar {
+            min-height: $shell-appbar-min-height;
+            background: $shell-appbar-background;
+            border-bottom: $shell-appbar-divider;
+            box-shadow: $shell-appbar-shadow;
+            padding: 0 $shell-appbar-paddingLeft;
+        }
+
+        #{$shell-prefix}-content {
+            flex: 1;
+            padding: $shell-content-paddingTop $shell-content-paddingLeft;
+        }
+
+        #{$shell-prefix}-content-inner {
+            margin: 0 auto;
+            max-width: $shell-content-max-width;
+            display: grid;
+            grid-row-gap: $shell-content-gutter-row;
+            grid-column-gap: $shell-content-gutter-column;
+            grid-template-columns: repeat($shell-content-columns, 1fr);
+        }
+
+        #{$shell-prefix}-footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: $shell-footer-background;
+            min-height: $shell-footer-min-height;
+        }
+    }
+
+    &-aside {
+        z-index: 9;
+        overflow-y: auto;
+        transition: all .2s $ease;
+        
+        .aside-trigger {
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 20px;
+            height: 48px;
+            display: flex;
+            border: 1px solid #DDD;
+            align-items: center;
+            justify-content: center;
+        }
+        .local-nav-trigger {
+            border-right: none;
+            transform: translate(100%, -50%) rotate(180deg);
+            right: 0;
+        }
+        .ancillary-trigger {
+            transform: translate(-100%, -50%);
+            left: 0;
+        }
+
+        &.#{$css-prefix}aside-localnavigation {
+            position: relative;
+            width: $shell-local-navigation-width;
+        }
+
+        &.#{$css-prefix}aside-ancillary {
+            position: relative;
+            width: $shell-ancillary-width;
+        }
+
+        
+        &#{$shell-prefix}-navigation {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 100%;
+            width: $shell-navigation-ver-width;
+            background: $shell-navigation-ver-background;
+            border-right: $shell-navigation-ver-divider;
+            box-shadow: $shell-navigation-ver-shadow;
+            display: flex;
+            flex-direction: column;
+            justify-self: flex-start;
+            padding: $shell-navigation-ver-paddingTop 0 $shell-navigation-ver-paddingBottom;
+            transition: all .2s $ease;
+
+            &#{$shell-prefix}-collapse {
+                width: 0;
+                &#{$shell-prefix}-mini {
+                    width: $shell-navigation-ver-width-mini;
+                }
+            }
+        }
+
+        &#{$shell-prefix}-tooldock {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            width: $shell-tooldock-width;
+            background: $shell-tooldock-background;
+            border-left: $shell-tooldock-divider;
+            box-shadow: $shell-tooldock-shadow;
+            padding: $shell-tooldock-paddingTop 0 $shell-tooldock-paddingBottom;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #{$shell-prefix}-tooldockitem {
+            width: $shell-tooldock-item-width;
+            text-align: center;
+            padding: $shell-tooldock-item-paddingTop 0;
+            color: $shell-tooldock-item-color;
+            background: $shell-tooldock-item-background;
+
+            &:hover {
+                color: $shell-tooldock-item-color-hover;
+                background: $shell-tooldock-item-background-hover;
+            }
+        }
+
+
+        #{$shell-prefix}-localnavigation {
+            position: fixed;
+            height: 100%;
+            width: $shell-local-navigation-width;
+            background: $shell-local-navigation-background;
+            border-right: $shell-local-navigation-divider;
+            box-shadow: $shell-local-navigation-shadow;
+            padding: $shell-local-navigation-paddingTop 0 $shell-local-navigation-paddingBottom;
+            display: flex;
+            flex-direction: column;
+            justify-self: flex-start;
+            transition: all .2s $ease;
+            
+            &#{$shell-prefix}-collapse {
+                .aside-trigger {
+                    border: 1px solid #DDD;
+                    border-left: none;
+                    transform: translate(100%, -50%);
+                }
+            }
+        }
+
+        #{$shell-prefix}-ancillary {
+            position: fixed;
+            height: 100%;
+            width: $shell-ancillary-width;
+            background: $shell-ancillary-background;
+            border-left: $shell-ancillary-divider;
+            box-shadow: $shell-ancillary-shadow;
+            padding: $shell-ancillary-paddingTop 0 $shell-ancillary-paddingBottom;
+            display: flex;
+            flex-direction: column;
+            justify-self: flex-start;
+            transition: all .2s $ease;
+
+            &#{$shell-prefix}-collapse {
+                .aside-trigger {
+                    border: 1px solid #DDD;
+                    border-left: none;
+                    transform: translate(-100%, -50%) rotate(180deg);
+                }
+            }
+        }
+
+        & > #{$shell-prefix}-collapse {
+            width: 0;
+        }
+    }
+
+
+    &-phone {
+
+        #{$shell-prefix}-header #{$shell-prefix}-navigation {
+            display: none;
+        }
+        #{$shell-prefix}-navigation {
+            width: 100%;
+        }
+        #{$shell-prefix}-tooldock {
+            height: $shell-tooldock-height;
+            left: 0;
+            right: 0;
+            width: 100%;
+            flex-direction: row;
+            justify-content: center;
+            &#{$shell-prefix}-collapse {
+                height: 0;
+                padding: 0;
+            }
+        }
+
+        #{$shell-prefix}-ancillary {
+            right: 0;
+        }
+    }
+
+    &-pad,
+    &-phone {
+        #{$shell-prefix}-aside {
+            position: absolute;
+        }
+    }
 }

@@ -2,17 +2,19 @@
 
 ![](https://img.alicdn.com/tfs/TB1nNtcelCw3KVjSZFuXXcAOpXa-881-465.png)
 ````jsx
-<Shell> 
-  <Shell.Branding /> Box(row)
-  <Shell.Navgation/>
-  <Shell.Action /> Box(row)
-  <Shell.LocaleNavgation /> Box(column)
-  <Shell.Ancillary /> Box(column)
-  <Shell.Toolbar /> Box(column)
-    <Shell.ToolbarItem icon=""  label="" onXXX="" /> 
-  <Shell.AppBar /> Box(column)
-  <Shell.Content /> Grid
-  <Shell.Footer /> Box(column)
+<Shell>
+    <Shell.Branding /> Box(row)
+    <Shell.Navgation/>
+    <Shell.Action /> Box(row)
+    <Shell.LocaleNavgation /> Box(column)
+
+    <Shell.AppBar /> Box(column)
+    <Shell.Content /> Grid
+    <Shell.Footer /> Box(column)
+    
+    <Shell.Ancillary /> Box(column)
+    <Shell.ToolDock /> Box(column)
+        <Shell.ToolDockItem />
 </Shell>
 ````
 其中 `<Shell.Content />` 采用Grid布局， 其他均为 Flex布局
@@ -21,69 +23,74 @@
 ### Shell
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| device             | 预设屏幕宽度，会影响`Navgation` `LocaleNavgation` `Ancillary`等的展开收起状态<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
+| device             | 预设屏幕宽度，会影响`Navgation` `LocaleNavgation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
 | scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
-| fullScreenHeader   | Header是否一直撑满屏幕 (是否横跨Aside)    | Boolean         | false     |
 
 ### Shell.Navgation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| miniable   | 是否折叠到只有icon的状态    | Boolean         | false     |
-| collaspe   | 是否折叠    | Boolean         | false     |
+| collapse   | 是否折叠(折叠成只有icon状态)   | Boolean         | false     |
 | direction  | 方向<br><br>**可选值**:<br>'hoz', 'ver'    | Enum         |  hoz    |
 
 ### Shell.LocaleNavgation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| collaspe   | 是否完全折叠    | Boolean         | false     |
+| collapse   | 是否折叠（完全收起）    | Boolean         | false     |
 
 ### Shell.Ancillary
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| collaspe   | 是否完全折叠    | Boolean         | false     |
+| collapse   | 是否折叠（完全收起）   | Boolean         | false     |
 
 
 ## Config配置项(待视觉稿提供后调整)
 
-- Shell
-  - background
 - Header (Fixed)
   - height
   - background
   - shadow
   - padding(l, r)
+  - divider (bottom-border-color, bottom-border-size)
+  - navigation-margin
+  - navigation-alignment
 - Navgation (Fixed)
   - width(ver)
   - mini-width (ver)
+  - divider (right-border-color, right-border-size) (ver)
   - background 
-  - padding-top
-  - padding-bottom
+  - padding(t, b) 
   - shadow
 -  LocaleNavgation (Fixed)
   - width
   - background 
-  - padding-top
-  - padding-bottom
+  - padding(t, b) 
+  - divider (right-border-color, right-border-size)
   - shadow
 - Ancillary
   - width
   - background 
-  - padding-top
-  - padding-bottom
+  - divider (left-border-color, left-border-size)
+  - padding(t, b) 
   - shadow
-- Toolbar
+- ToolDock
   - width
   - background 
   - shadow
-  - padding(l, r)
+  - divider (left-border-color, left-border-size)
   - padding(t, b)
 - AppBar
-  - background
+  - min-height
+  - background 
+  - divider (bottom-border-color, bottom-border-size)
+  - shadow
+  - padding(l, r) 
 - Content
-  - rows
+  - max-width
+  - columns
   - background
   - padding
+  - gutter-row
+  - gutter-column
 - Footer
   - background 
-  - height
-  - shadow
+  - min-height

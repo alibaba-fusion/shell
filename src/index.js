@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import Shell from './shell';
+import Base from './base';
 
-export default class Shell extends Component {
-  static displayName = 'Shell';
+['Branding', 'Navigation', 'Action', 'LocalNavigation', 'AppBar', 'Content', 'Footer', 'Ancillary', 'ToolDock', 'ToolDockItem'].forEach(key => {
+  Shell[key] = Base({
+    componentName: key
+  });
+});
 
-  render() {
-    return (
-      <div className="shell">Hello Shell</div>
-    );
-  }
-}
+Shell.Page = Shell;
+// Shell.ToolDockItem = Base;
+
+export default Shell;
