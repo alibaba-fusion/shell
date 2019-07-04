@@ -148,7 +148,6 @@
             position: fixed;
             left: 0;
             bottom: 0;
-            height: 100%;
             width: $shell-navigation-ver-width;
             background: $shell-navigation-ver-background;
             border-right: $shell-navigation-ver-divider;
@@ -171,7 +170,6 @@
             position: fixed;
             right: 0;
             bottom: 0;
-            height: 100%;
             width: $shell-tooldock-width;
             background: $shell-tooldock-background;
             border-left: $shell-tooldock-divider;

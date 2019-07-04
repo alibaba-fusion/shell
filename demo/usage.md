@@ -20,12 +20,31 @@ const Block = (props) => {
   return <div className="block"></div>;
 }
 
+;(function() {
+    var throttle = function(type, name, obj) {
+        obj = obj || window;
+        var running = false;
+        var func = function() {
+            if (running) { return; }
+            running = true;
+             requestAnimationFrame(function() {
+                obj.dispatchEvent(new CustomEvent(name));
+                running = false;
+            });
+        };
+        obj.addEventListener(type, func);
+    };
+
+    /* init - you can init any event */
+    throttle("resize", "optimizedResize");
+})();
+
 class App extends Component {
   state = {}
   componentDidMount() {
     this.handleResize(window.innerWidth);
 
-    window.addEventListener("resize", (e) => {
+    window.addEventListener("optimizedResize", (e) => {
       this.handleResize(e.target.window.innerWidth);
     });
   }
