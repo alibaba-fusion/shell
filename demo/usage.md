@@ -16,10 +16,6 @@ import '@alife/theme-451/dist/next.css';
 
 const { SubNav, Item, Group, Divider } = Nav;
 
-const Block = (props) => {
-  return <div className="block"></div>;
-}
-
 ;(function() {
     var throttle = function(type, name, obj) {
         obj = obj || window;
@@ -50,7 +46,7 @@ class App extends Component {
   }
 
   handleResize = width => {
-    if (width < 1024) {
+    if (width < 680) {
       device = 'phone';
     } else if (width > 1280) {
       device = 'desktop';
@@ -176,14 +172,7 @@ ReactDOM.render((
   right: 0;
   overflow: auto;
 }
-.block {
-  display: block;
-  width: 80px;
-  min-height: 320px;
-  border: 1px solid #333;
-  background: #ddd;
-  margin: 20px auto;
-}
+
 .fusion-shell-action .next-icon {
   margin: 0 30px;
   color: #fff;

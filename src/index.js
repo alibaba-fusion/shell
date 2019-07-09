@@ -1,5 +1,9 @@
-import Shell from './shell';
+import ShellBase from './shell';
 import Base from './base';
+
+const Shell = ShellBase({
+  componentName: 'Shell'
+});
 
 ['Branding', 'Navigation', 'Action', 'LocalNavigation', 'AppBar', 'Content', 'Footer', 'Ancillary', 'ToolDock', 'ToolDockItem'].forEach(key => {
   Shell[key] = Base({
@@ -7,7 +11,8 @@ import Base from './base';
   });
 });
 
-Shell.Page = Shell;
-// Shell.ToolDockItem = Base;
+Shell.Page = ShellBase({
+  componentName: 'Page'
+});
 
 export default Shell;

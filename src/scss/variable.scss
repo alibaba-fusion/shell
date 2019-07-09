@@ -54,7 +54,7 @@ $shell-appbar-divider-color: #EEE;
 $shell-appbar-divider: $shell-appbar-divider-size $shell-appbar-divider-style $shell-appbar-divider-color;
 
 
-$shell-content-max-width: auto;
+$shell-content-max-width: unset;
 $shell-content-background: #F5F5F5;
 $shell-content-paddingLeft: 24px;
 $shell-content-paddingTop: 24px;
@@ -87,7 +87,7 @@ $shell-tooldock-divider-color: #EEE;
 $shell-tooldock-divider: $shell-tooldock-divider-size $shell-tooldock-divider-style $shell-tooldock-divider-color;
 
 
-$shell-tooldock-item-width: 52px;
+// $shell-tooldock-item-width: 52px;
 $shell-tooldock-item-paddingTop: 10px;
 $shell-tooldock-item-color: #666;
 $shell-tooldock-item-color-hover: #333;

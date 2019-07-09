@@ -35,7 +35,7 @@ export function getCollapseMap(device) {
         case 'phone':
             break;
         case 'pad':
-            map = ['Navigation', 'ToolDock'];
+            map = ['ToolDock'];
             break;
         case 'desktop':
             map = ['Navigation', 'LocalNavigation', 'Ancillary', 'ToolDock'];

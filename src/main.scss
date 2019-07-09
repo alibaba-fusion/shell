@@ -4,6 +4,7 @@
 
 #{$shell-prefix} {
     position: relative;
+    transition: all .2s $ease;
     
     &-header {
         display: flex;
@@ -67,7 +68,8 @@
         display: flex;
         flex-direction: row;
         position: relative;
-        height: calc(100vh - #{$shell-header-height});
+        // height: calc(100vh - #{$shell-header-height});
+        height: 100%;
         box-sizing: content-box;
         background: $shell-content-background;
         overflow: auto;
@@ -170,6 +172,7 @@
             position: fixed;
             right: 0;
             bottom: 0;
+            height: 100%;
             width: $shell-tooldock-width;
             background: $shell-tooldock-background;
             border-left: $shell-tooldock-divider;
@@ -181,7 +184,7 @@
         }
 
         #{$shell-prefix}-tooldockitem {
-            width: $shell-tooldock-item-width;
+            width: 100%;
             text-align: center;
             padding: $shell-tooldock-item-paddingTop 0;
             color: $shell-tooldock-item-color;
@@ -265,15 +268,21 @@
             }
         }
 
-        #{$shell-prefix}-ancillary {
-            right: 0;
-        }
+        // #{$shell-prefix}-ancillary {
+        //     right: 0;
+        // }
     }
 
     &-pad,
     &-phone {
-        #{$shell-prefix}-aside {
-            position: absolute;
+        #{$shell-prefix}-aside.#{$css-prefix}aside-ancillary {
+            width: 0;
+        }
+        #{$shell-prefix}-ancillary {
+            transform: translateX(-100%);            
+        }
+        #{$shell-prefix}-aside.#{$css-prefix}aside-localnavigation {
+            width: 0;
         }
     }
 }
