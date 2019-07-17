@@ -68,10 +68,10 @@ class App extends Component {
     });
   }
 
-  triggerClick = (e, nextCollapse) => {
+  triggerClick = (e, currentCollapse) => {
     
     this.setState({
-      navcollapse: nextCollapse
+      navcollapse: !currentCollapse
     });
   }
 

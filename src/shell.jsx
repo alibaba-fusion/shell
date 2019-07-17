@@ -93,7 +93,7 @@ export default function ShellBase(props) {
             const { triggerProps = {} } = com.props;
 
             if (typeof triggerProps.onClick === 'function') {
-                triggerProps.onClick(e, !this.state.collapseMap[mark]);
+                triggerProps.onClick(e, this.state.collapseMap[mark]);
             }
         }
     
