@@ -4,9 +4,9 @@
 ````jsx
 <Shell>
     <Shell.Branding /> Box(row)
-    <Shell.Navgation/>
+    <Shell.Navigation/>
     <Shell.Action /> Box(row)
-    <Shell.LocaleNavgation /> Box(column)
+    <Shell.LocaleNavigation /> Box(column)
 
     <Shell.AppBar /> Box(column)
     <Shell.Content /> Grid
@@ -23,7 +23,7 @@
 ### Shell
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| device             | 预设屏幕宽度，会影响`Navgation` `LocaleNavgation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
+| device             | 预设屏幕宽度，会影响`Navigation` `LocaleNavigation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
 | scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
 
 ### Shell.Navigation
@@ -61,14 +61,14 @@
   - divider (bottom-border-color, bottom-border-size)
   - navigation-margin
   - navigation-alignment
-- Navgation (Fixed)
+- Navigation (Fixed)
   - width(ver)
   - mini-width (ver)
   - divider (right-border-color, right-border-size) (ver)
   - background 
   - padding(t, b) 
   - shadow
--  LocaleNavgation (Fixed)
+-  LocaleNavigation (Fixed)
   - width
   - background 
   - padding(t, b) 

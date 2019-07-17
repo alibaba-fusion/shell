@@ -230,7 +230,7 @@ export default function ShellBase(props) {
                 [`${prefix}shell-main`]: true,
             });
     
-            const submainCls = classnames({
+            const submainCls = classnames( {
                 [`${prefix}shell-sub-main`]: true,
             });
     
@@ -240,11 +240,11 @@ export default function ShellBase(props) {
     
             const localeNavCls = classnames(asideCls, {
                 [`${prefix}aside-localnavigation`]: true,
-            });
+            }, layout.LocalNavigation.props.className);
     
             const ancillaryCls = classnames(asideCls, {
                 [`${prefix}aside-ancillary`]: true,
-            });
+            }, layout.Ancillary.props.className);
     
             let headerHeight = 0;
             
@@ -376,7 +376,7 @@ export default function ShellBase(props) {
     
             layout.Navigation && arr.push(
                 React.cloneElement(layout.Navigation, {
-                    className: classnames(asideCls, layout.Navigation.className),
+                    className: classnames(asideCls, layout.Navigation.props.className),
                     style: { ...layout.Navigation.style, ...asideStyle },
                     key: "navigation"
                 })
@@ -384,7 +384,7 @@ export default function ShellBase(props) {
     
             layout.ToolDock && arr.push(
                 React.cloneElement(layout.ToolDock, {
-                    className: classnames(asideCls, layout.ToolDock.className),
+                    className: classnames(asideCls, layout.ToolDock.props.className),
                     style: { ...layout.ToolDock.style, ...dockStyle },
                     key: "tooldock"
                 })
