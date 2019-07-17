@@ -26,22 +26,30 @@
 | device             | 预设屏幕宽度，会影响`Navgation` `LocaleNavgation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
 | scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
 
-### Shell.Navgation
+### Shell.Navigation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠(折叠成只有icon状态)   | Boolean         | false     |
 | direction  | 方向<br><br>**可选值**:<br>'hoz', 'ver'    | Enum         |  hoz    |
+| triggerProps | trigger参数        | Object           | {} |
 
-### Shell.LocaleNavgation
+### Shell.LocaleNavigation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）    | Boolean         | false     |
+| triggerProps | trigger参数        | Object           | {} |
+
+### Shell.ToolDock
+| 参数                  | 说明          | 类型              | 默认值              |
+| -------------------- | ------------ | ----------------- | ------------------ |
+| collapse   | 是否折叠（完全收起）   | Boolean         | false     |
+| triggerProps | trigger参数        | Object           | {} |
 
 ### Shell.Ancillary
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）   | Boolean         | false     |
-
+| triggerProps | trigger参数        | Object           | {} |
 
 ## Config配置项(待视觉稿提供后调整)
 

@@ -14,21 +14,38 @@ export default function Base(props) {
             collapse: PropTypes.bool,
             miniable: PropTypes.bool,
             Component: PropTypes.string,
+            triggerProps: PropTypes.object,
+            /**
+             * 弹层显示或隐藏时触发的回调函数
+             * @param {Boolean} collapse 弹层是否显示
+             */
+            onCollapseChange: PropTypes.func,
         }
 
         static defaultProps = {
             prefix: 'fusion-',
             Component: 'div',
+            onCollapseChange: () => {}
         };
+
+        constructor(props) {
+            super(props);
+        }
+
+        componentWillReceiveProps(nextProps) {
+            this.props.onCollapseChange(nextProps.collapse);
+        }
 
         render() {
             const {
                 prefix,
                 className,
-                collapse,
                 miniable,
                 device,
                 children,
+                collapse,
+                triggerProps,
+                onCollapseChange,
                 Component,
                 ...others
             } = this.props;

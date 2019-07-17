@@ -27,9 +27,11 @@ export default function ShellBase(props) {
         constructor(props) {
             super(props);
     
+            const deviceMap = getCollapseMap(props.device);
+
             this.state = {
                 controll: false,
-                collapseMap: {},
+                collapseMap: deviceMap,
                 device: props.device,
                 contentStyle: {},
             };
@@ -47,13 +49,15 @@ export default function ShellBase(props) {
                 });
             }
         }
-    
+
         setChildCollapse = (child, mark) => {
             const { device, collapseMap, controll } = this.state;
+            const { collapse } = child.props;
             const deviceMap = getCollapseMap(device);
             const props = {}
     
-            if (isBoolean(child.props.collapse) === false) {
+            // 非受控模式
+            if (isBoolean(collapse) === false) {
                 props.collapse = controll ? collapseMap[mark] : deviceMap[mark];
             }
     
@@ -64,9 +68,8 @@ export default function ShellBase(props) {
             return React.cloneElement(child, props);
         }
     
-        toggleAside = (mark) => {
+        toggleAside = (mark, e) => {
             const { device, collapseMap } = this.state;
-    
             const deviceMap = getCollapseMap(device);
             const current = mark in collapseMap ? collapseMap[mark] : deviceMap[mark];
     
@@ -78,35 +81,49 @@ export default function ShellBase(props) {
                     [mark]: !current
                 }
             });
+
+            const { children } = this.props;
+            let com;
+            if (mark === 'Navigation') {
+                com = children.filter(child => child.type._typeMark.replace('Shell_', '') === mark && child.props.direction !== 'hoz').pop();
+            } else {
+                com = children.filter(child => child.type._typeMark.replace('Shell_', '') === mark).pop();
+            }
+
+            const { triggerProps = {} } = com.props;
+
+            if (typeof triggerProps.onClick === 'function') {
+                triggerProps.onClick(e, !this.state.collapseMap[mark]);
+            }
         }
     
-        toggleNavigation = () => {
-            this.toggleAside('Navigation');
+        toggleNavigation = (e) => {
+            this.toggleAside('Navigation', e);
         }
     
-        toggleLocalNavigation = () => {
-            this.toggleAside('LocalNavigation');
+        toggleLocalNavigation = (e) => {
+            this.toggleAside('LocalNavigation', e);
         }
     
-        toggleAncillary = () => {
-            this.toggleAside('Ancillary');
+        toggleAncillary = (e) => {
+            this.toggleAside('Ancillary', e);
         }
     
-        toggleToolDock = () => {
-            this.toggleAside('ToolDock');
+        toggleToolDock = (e) => {
+            this.toggleAside('ToolDock', e);
         }
-    
-    
+
         renderShell = (props) => {
             const {
                 prefix,
+                sizeMap,
                 children,
                 className,
             } = props;
     
+
             const { device, collapseMap, controll } = this.state;
-            const siderSizes = getSiderSize(device);
-            const deviceMap = getCollapseMap(device);
+            const siderSizes = getSiderSize(device, sizeMap);
     
             const layout = {};
             let hasHeader = false, hasToolDock = false, hasHeaderToolDock = false, needNavigationTrigger = false, needDockTrigger = false, hasAncillary = false;
@@ -190,10 +207,11 @@ export default function ShellBase(props) {
                                 layout[mark] = childN;
     
                                 let paddingLeft = siderSizes[mark];
+
                                 if (childN.props.collapse) {
                                     paddingLeft = siderSizes[`${mark}Collapse`];
                                 }
-    
+
                                 contentStyle.paddingLeft += paddingLeft;
                             }
                             break;
@@ -234,15 +252,7 @@ export default function ShellBase(props) {
                 headerHeight = siderSizes.Header || 0;
                 dockStyle.top = headerHeight;
             }
-    
-            // if (hasAncillary) {
-            //     ancillaryStyle.right = 0;
-    
-            //     if (hasToolDock) {
-            //         ancillaryStyle.right = siderSizes.ToolDock;                
-            //     }
-            // }
-    
+
             if (hasToolDock) {
                 if (device === 'phone') {
                     needDockTrigger = true;                
@@ -256,10 +266,11 @@ export default function ShellBase(props) {
             asideStyle.top = headerHeight;
             ancillaryStyle.top = headerHeight;
             contentStyle.paddingTop = headerHeight;
-    
+
             // 如果存在垂直模式的 Navigation, 则需要在 Branding 上出现 trigger
             if (needNavigationTrigger) {
                 const branding = layout.header.Branding;
+                
                 const icon = <div key="nav-trigger" className="nav-trigger" onClick={this.toggleNavigation}>
                     <Icon.Expand />
                 </div>
@@ -301,8 +312,10 @@ export default function ShellBase(props) {
             if (layout.LocalNavigation) {
                 const mark = 'LocalNavigation';
                 const style = {};
-                const collapse = controll ? collapseMap[mark] : deviceMap[mark];
-    
+                // const collapse = controll ? collapseMap[mark] : deviceMap[mark];
+   
+                // const collapse = layout.LocalNavigation.props.collapse;
+                const collapse = collapseMap[mark];
                 if (collapse) {
                     style.width = 0;
                 }
@@ -335,8 +348,11 @@ export default function ShellBase(props) {
             if (layout.Ancillary) {
                 const mark = 'Ancillary';
                 const style = {};
-                const collapse = controll ? collapseMap[mark] : deviceMap[mark];
+                // const collapse = controll ? collapseMap[mark] : deviceMap[mark];
     
+                // const collapse = layout.Ancillary.props.collapse;
+                const collapse = collapseMap[mark];
+
                 if (collapse) {
                     style.width = 0;
                 }

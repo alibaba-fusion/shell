@@ -11,8 +11,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Shell from '@alifd/shell';
 import { Menu, Search, Icon, Nav, Breadcrumb, Card } from '@alifd/next';
-// todo  改成外网包
-import '@alife/theme-451/dist/next.css';
+
+import '@alifd/theme-shell/dist/next.css';
 
 const { SubNav, Item, Group, Divider } = Nav;
 
@@ -62,10 +62,23 @@ class App extends Component {
   }
 
 
+  btnClick = () => {
+    this.setState({
+      navcollapse: !this.state.navcollapse
+    });
+  }
+
+  triggerClick = (e, nextCollapse) => {
+    
+    this.setState({
+      navcollapse: nextCollapse
+    });
+  }
+
   render() {
     return (
       <div className="root">
-        <Shell className={"iframe-hack"} device={this.state.device}>
+        <Shell className={"iframe-hack"} device={this.state.device} sizeMap={{NavigationCollapse: 60}}>
           <Shell.Branding>
             <div className="rectangular"></div>
             <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
@@ -74,12 +87,12 @@ class App extends Component {
             <Search key="2" shape="simple" type="dark" palceholder="Search" style={{width: '200px'}}/>
           </Shell.Navigation>
           <Shell.Action>
-            <Icon type="calendar" />
+            <Icon type="ic_tongzhi" />
             <img src="https://cdog01.alibaba-inc.com/aliwork/tUd4i7IDM8%2FuALhbY3H72kbPrqsVgoZ2GiVxZLXTfxB%2B91Z5dVJX5JSCGrUYBbnp?e=eIxQ5SR3%2BXODJpmDlfdb6A%3D%3D" className="avatar" alt="用户头像" />
             <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
           </Shell.Action>
 
-          <Shell.Navigation>
+          <Shell.Navigation onCollapseChange={console.log} triggerProps={{onClick: this.triggerClick}} collapse={this.state.navcollapse}>
             <Nav  type="primary" embeddable>
               <Nav.Item icon="Item">Nav Item 1</Nav.Item>
               <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
@@ -89,6 +102,7 @@ class App extends Component {
               <Nav.Item icon="Item5">Nav Item 6</Nav.Item>
               <Nav.Item icon="Item6">Nav Item 7</Nav.Item>
           </Nav>
+          <div className="my-trigger-nav" onClick={this.btnClick}> toggle </div>
           </Shell.Navigation>
 
           <Shell.LocalNavigation>
@@ -111,7 +125,7 @@ class App extends Component {
           </Shell.LocalNavigation>
 
           <Shell.Content>
-            <div style={{minHeight: 500, background: '#fff'}}></div>
+            <div style={{minHeight: 1200, background: '#fff'}}></div>
           </Shell.Content>
           <Shell.Footer>
             <span>Alibaba Fusion</span>
@@ -123,7 +137,7 @@ class App extends Component {
           </Shell.Ancillary>
           <Shell.ToolDock>
             <Shell.ToolDockItem>
-              <Icon type="search" />
+              <Icon type="ic_search" />
             </Shell.ToolDockItem>
             <Shell.ToolDockItem>
               <Icon type="calendar" />
@@ -146,6 +160,15 @@ ReactDOM.render((
 ), mountNode);
 ````
 ````css
+.my-trigger-nav {
+  min-height: 30px;
+  color: #fff;
+  background: #333;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
 .avatar {
   width: 32px;
   height: 32px;
@@ -172,7 +195,6 @@ ReactDOM.render((
   right: 0;
   overflow: auto;
 }
-
 .fusion-shell-action .next-icon {
   margin: 0 30px;
   color: #fff;
@@ -190,9 +212,7 @@ ReactDOM.render((
 .fusion-shell-header .fusion-shell-navigation {
   margin: 0;
 }
-.fusion-shell-header {
-  border-bottom: 0;
-}
+
 .fusion-shell-main .fusion-shell-footer {
   background: transparent;
   text-align: left;
@@ -205,6 +225,9 @@ ReactDOM.render((
   padding-bottom: 20px;
 }
 .fusion-shell-aside .fusion-shell-localnavigation.fusion-shell-collapse .next-nav.next-ver .next-menu-item{
-  padding: 0;
+  padding: 0!important;
+}
+.fusion-shell-aside.fusion-shell-navigation.fusion-shell-collapse.fusion-shell-mini {
+  width: 60px;
 }
 ````

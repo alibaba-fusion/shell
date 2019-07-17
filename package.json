@@ -1,6 +1,6 @@
 {
   "name": "@alifd/shell",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "layout shell",
   "files": [
     "demo/",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@alifd/next": "^1.15.10",
-    "@alife/theme-451": "^0.2.1",
+    "@alifd/theme-shell": "^0.2.0",
     "ice-plugin-component": "^0.1.1",
     "ice-plugin-fusion": "^0.1.4",
     "ice-scripts": "^2.0.0",
@@ -42,5 +42,5 @@
     "title": "shell",
     "categories": []
   },
-  "homepage": "https://unpkg.com/@alifd/shell@1.0.1/build/index.html"
+  "homepage": "https://unpkg.com/@alifd/shell@1.0.4/build/index.html"
 }

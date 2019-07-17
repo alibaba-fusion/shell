@@ -1,4 +1,3 @@
-
 const siderSizes = {
     // height
     Header: 52,
@@ -53,10 +52,10 @@ export function getCollapseMap(device) {
     return origin;
 }
 
-
-export function getSiderSize(device) {
+export function getSiderSize(device, sizesMap) {
+    const sMap = { ...siderSizes, ...sizesMap };
     const size = {
-        Header: siderSizes.Header,
+        Header: sMap.Header,
         Navigation: 0,
         NavigationCollapse: 0,
         LocalNavigation: 0,
@@ -83,7 +82,7 @@ export function getSiderSize(device) {
 
     Object.keys(size).forEach(key => {
         if (map.indexOf(key) > -1) {
-            size[key] = siderSizes[key];
+            size[key] = sMap[key];
         }
     })
 
