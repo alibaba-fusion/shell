@@ -4,14 +4,16 @@
 
 #{$shell-prefix} {
     position: relative;
+    display: flex;
+    flex-direction: column;
     transition: all .2s $ease;
     
+    &-content-wrapper {
+        overflow: auto;
+    }
+
     &-header {
         display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
         width: 100%;
         height: $shell-header-height;
         background: $shell-header-background;
@@ -63,9 +65,12 @@
         flex: 1;
         display: flex;
         flex-direction: column;
+        height: 100%;
+        overflow: auto;
     }
     &-main {
         display: flex;
+        flex: 1;
         flex-direction: row;
         position: relative;
         height: 100%;
@@ -108,8 +113,8 @@
     }
 
     &-aside {
-        z-index: 9;
-        overflow-y: auto;
+        // z-index: 9;
+        // overflow-y: auto;
         transition: all .2s $ease;
         
         .aside-trigger {
@@ -136,19 +141,15 @@
 
         &.#{$css-prefix}aside-localnavigation {
             position: relative;
-            width: $shell-local-navigation-width;
         }
 
         &.#{$css-prefix}aside-ancillary {
             position: relative;
-            width: $shell-ancillary-width;
         }
 
         
         &#{$shell-prefix}-navigation {
-            position: fixed;
-            left: 0;
-            bottom: 0;
+            overflow-x: auto;
             width: $shell-navigation-ver-width;
             background: $shell-navigation-ver-background;
             border-right: $shell-navigation-ver-divider;
@@ -168,9 +169,8 @@
         }
 
         &#{$shell-prefix}-tooldock {
-            position: fixed;
-            right: 0;
-            bottom: 0;
+            overflow-x: auto;
+
             height: 100%;
             width: $shell-tooldock-width;
             background: $shell-tooldock-background;
@@ -195,9 +195,8 @@
             }
         }
 
-
         #{$shell-prefix}-localnavigation {
-            position: fixed;
+            position: relative;
             height: 100%;
             width: $shell-local-navigation-width;
             background: $shell-local-navigation-background;
@@ -219,7 +218,6 @@
         }
 
         #{$shell-prefix}-ancillary {
-            position: fixed;
             height: 100%;
             width: $shell-ancillary-width;
             background: $shell-ancillary-background;
@@ -253,11 +251,19 @@
         }
         #{$shell-prefix}-navigation {
             width: 100%;
+            height: 100%;
+            transition: height .2s $ease;
+            &#{$shell-prefix}-collapse {
+                padding: 0;
+                height: 0;
+                transition: height .2s $ease;
+            }
         }
         #{$shell-prefix}-tooldock {
             height: $shell-tooldock-height;
             left: 0;
             right: 0;
+            position: absolute;
             width: 100%;
             flex-direction: row;
             justify-content: center;

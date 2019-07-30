@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { isBoolean, getCollapseMap, getSiderSize } from './util';
+import { isBoolean, getCollapseMap } from './util';
 import Icon from './svg';
 
 export default function ShellBase(props) {
@@ -33,7 +33,6 @@ export default function ShellBase(props) {
                 controll: false,
                 collapseMap: deviceMap,
                 device: props.device,
-                contentStyle: {},
             };
         }
     
@@ -55,12 +54,12 @@ export default function ShellBase(props) {
             const { collapse } = child.props;
             const deviceMap = getCollapseMap(device);
             const props = {}
-    
+
             // 非受控模式
             if (isBoolean(collapse) === false) {
                 props.collapse = controll ? collapseMap[mark] : deviceMap[mark];
             }
-    
+
             if (device !== 'phone' && mark === 'Navigation') {
                 props.miniable = true;
             }
@@ -122,14 +121,11 @@ export default function ShellBase(props) {
             } = props;
     
 
-            const { device, collapseMap, controll } = this.state;
-            const siderSizes = getSiderSize(device, sizeMap);
+            const { device } = this.state;
     
             const layout = {};
-            let hasHeader = false, hasToolDock = false, hasHeaderToolDock = false, needNavigationTrigger = false, needDockTrigger = false, hasAncillary = false;
-    
-            const asideStyle = {}, dockStyle = {}, ancillaryStyle = {}, contentStyle = {};
-    
+            let hasToolDock = false, needNavigationTrigger = false, needDockTrigger = false;
+
             React.Children.map(children, child => {
                 if (
                     child &&
@@ -139,8 +135,6 @@ export default function ShellBase(props) {
                     switch (mark) {
                         case 'Branding':
                         case 'Action':
-                            hasHeader = true;
-    
                             if (!layout.header) {
                                 layout.header = {};
                             }
@@ -153,7 +147,6 @@ export default function ShellBase(props) {
                             layout[mark] = this.setChildCollapse(child, mark);
                             break;
                         case 'Ancillary':
-                            hasAncillary = true;
                             if (!layout[mark]) {
                                 layout[mark] = [];
                             }
@@ -165,17 +158,11 @@ export default function ShellBase(props) {
                             
                             if (!layout[mark]) {
                                 layout[mark] = [];
-                                contentStyle.paddingRight = 0;
                             }
     
                             const childT = this.setChildCollapse(child, mark);
                             layout[mark] = childT;
     
-                            if (childT.props.collapse) {
-                                hasHeaderToolDock = true;
-                            } else {
-                                contentStyle.paddingRight += siderSizes[mark]
-                            }
                             break;
                         case 'AppBar':
                         case 'Content':
@@ -193,26 +180,17 @@ export default function ShellBase(props) {
                             }
     
                             if (child.props.direction === 'hoz') {
-                                hasHeader = true;
                                 layout.header[mark] = child;
                             } else {
                                 if (!layout[mark]) {
                                     layout[mark] = []
-                                    contentStyle.paddingLeft = 0;
                                 }
     
                                 needNavigationTrigger = true;
     
                                 const childN = this.setChildCollapse(child, mark);
                                 layout[mark] = childN;
-    
-                                let paddingLeft = siderSizes[mark];
 
-                                if (childN.props.collapse) {
-                                    paddingLeft = siderSizes[`${mark}Collapse`];
-                                }
-
-                                contentStyle.paddingLeft += paddingLeft;
                             }
                             break;
                         default:
@@ -238,34 +216,11 @@ export default function ShellBase(props) {
                 [`${prefix}shell-aside`]: true,
             });
     
-            const localeNavCls = classnames(asideCls, {
-                [`${prefix}aside-localnavigation`]: true,
-            }, layout.LocalNavigation.props.className);
-    
-            const ancillaryCls = classnames(asideCls, {
-                [`${prefix}aside-ancillary`]: true,
-            }, layout.Ancillary.props.className);
-    
-            let headerHeight = 0;
-            
-            if (hasHeader) {
-                headerHeight = siderSizes.Header || 0;
-                dockStyle.top = headerHeight;
-            }
-
             if (hasToolDock) {
                 if (device === 'phone') {
                     needDockTrigger = true;                
                 }
-    
-                if (!hasHeaderToolDock) {
-                    headerHeight += siderSizes.ToolDockHeader || 0;
-                }
             }
-    
-            asideStyle.top = headerHeight;
-            ancillaryStyle.top = headerHeight;
-            contentStyle.paddingTop = headerHeight;
 
             // 如果存在垂直模式的 Navigation, 则需要在 Branding 上出现 trigger
             if (needNavigationTrigger) {
@@ -306,32 +261,25 @@ export default function ShellBase(props) {
                 }
             }
     
-            const arr = [], innerArr = [];
+            let headerDom = [], contentArr = [], innerArr = [];
     
             // 按照dom结构，innerArr 包括 LocalNavigation content Ancillary
             if (layout.LocalNavigation) {
-                const mark = 'LocalNavigation';
-                const style = {};
-                // const collapse = controll ? collapseMap[mark] : deviceMap[mark];
-   
-                // const collapse = layout.LocalNavigation.props.collapse;
-                const collapse = collapseMap[mark];
-                if (collapse) {
-                    style.width = 0;
-                }
+                const localeNavCls = classnames(asideCls, {
+                    [`${prefix}aside-localnavigation`]: true,
+                });
     
                 innerArr.push(
-                    <aside key="localnavigation" className={localeNavCls} style={style}>
+                    <aside key="localnavigation" className={localeNavCls}>
                         {
-                            React.cloneElement(layout.LocalNavigation, {
-                                style: asideStyle,
-                            }, [
-                                    layout.LocalNavigation.props.children,
-                                    <div key="local-nav-trigger" className="local-nav-trigger aside-trigger" onClick={this.toggleLocalNavigation}>
-                                        <Icon.ArrowRight />
-                                    </div>
-                                ]
-                            )
+                            React.cloneElement(layout.LocalNavigation, {}, [
+                                <div key="wrapper" className={`${prefix}shell-content-wrapper`}>
+                                    {layout.LocalNavigation.props.children}
+                                </div>,
+                                <div key="local-nav-trigger" className="local-nav-trigger aside-trigger" onClick={this.toggleLocalNavigation}>
+                                    <Icon.ArrowRight />
+                                </div>
+                            ])
                         }
                     </aside>
                 );
@@ -346,53 +294,30 @@ export default function ShellBase(props) {
             }
     
             if (layout.Ancillary) {
-                const mark = 'Ancillary';
-                const style = {};
-                // const collapse = controll ? collapseMap[mark] : deviceMap[mark];
-    
-                // const collapse = layout.Ancillary.props.collapse;
-                const collapse = collapseMap[mark];
-
-                if (collapse) {
-                    style.width = 0;
-                }
+                const ancillaryCls = classnames(asideCls, {
+                    [`${prefix}aside-ancillary`]: true,
+                });
     
                 innerArr.push(
-                    <aside key="ancillary" className={ancillaryCls} style={style}>
+                    <aside key="ancillary" className={ancillaryCls}>
                         {
-                            React.cloneElement(layout.Ancillary, {
-                                style: ancillaryStyle
-                            }, [
-                                    layout.Ancillary.props.children,
-                                    <div key="ancillary-trigger" className="ancillary-trigger aside-trigger" onClick={this.toggleAncillary}>
-                                        <Icon.ArrowRight />
-                                    </div>
-                                ]
-                            )
+                            React.cloneElement(layout.Ancillary, {}, [
+                                <div key="wrapper" className={`${prefix}shell-content-wrapper`}>
+                                    {layout.Ancillary.props.children}
+                                </div>,
+                                <div key="ancillary-trigger" className="ancillary-trigger aside-trigger" onClick={this.toggleAncillary}>
+                                    <Icon.ArrowRight />
+                                </div>
+                            ])
                         }
+
                     </aside>
                 )
             }
     
-            layout.Navigation && arr.push(
-                React.cloneElement(layout.Navigation, {
-                    className: classnames(asideCls, layout.Navigation.props.className),
-                    style: { ...layout.Navigation.style, ...asideStyle },
-                    key: "navigation"
-                })
-            );
-    
-            layout.ToolDock && arr.push(
-                React.cloneElement(layout.ToolDock, {
-                    className: classnames(asideCls, layout.ToolDock.props.className),
-                    style: { ...layout.ToolDock.style, ...dockStyle },
-                    key: "tooldock"
-                })
-            );
-    
             // 按照dom结构, arr 包括 header Navigation ToolDock 和 innerArr
-            layout.header && arr.push(
-                <header key="header" className={headerCls}>
+            if (layout.header) {
+                headerDom = <header key="header" className={headerCls}>
                 {
                     Object.keys(layout.header).map(key => 
                         {
@@ -401,22 +326,29 @@ export default function ShellBase(props) {
                             })
                         })
                 }
-                </header>
+                </header>;
+            }
+
+            layout.Navigation && contentArr.push(
+                React.cloneElement(layout.Navigation, {
+                    className: classnames(asideCls, layout.Navigation.props.className),
+                    key: "navigation"
+                })
             );
-            
-            // arr.unshift(
-            //     <section key="main" className={mainCls} style={{ ...contentStyle }}>
-            //         {innerArr}
-            //     </section>
-            // );
-    
-            // return arr;
     
             let contentArea = innerArr.length > 0 
                 ? <section key="main" className={mainCls}>{innerArr}</section>
                 : layout.page;
 
-            arr.unshift(contentArea);
+            contentArr.push(contentArea);
+
+            layout.ToolDock && contentArr.push(
+                React.cloneElement(layout.ToolDock, {
+                    className: classnames(asideCls, layout.ToolDock.props.className),
+                    key: "tooldock"
+                })
+            );
+
     
             const cls = classnames({
                 [`${prefix}shell`]: true,
@@ -425,11 +357,14 @@ export default function ShellBase(props) {
             });
 
             if (componentName === 'Page') {
-                return arr;
+                return contentArr;
             }
 
-            return <section className={cls} style={{ ...contentStyle }}>
-                {arr}
+            return <section className={cls} >
+                {headerDom}
+                <section className={mainCls}>
+                    {contentArr}
+                </section>
             </section>
         }
     

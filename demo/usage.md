@@ -69,7 +69,7 @@ class App extends Component {
   }
 
   triggerClick = (e, currentCollapse) => {
-    
+    console.log(e, currentCollapse)
     this.setState({
       navcollapse: !currentCollapse
     });
@@ -92,7 +92,7 @@ class App extends Component {
             <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
           </Shell.Action>
 
-          <Shell.Navigation onCollapseChange={console.log} triggerProps={{onClick: this.triggerClick}} collapse={this.state.navcollapse}>
+          <Shell.Navigation collapse={this.state.navcollapse}  triggerProps={{onClick: this.triggerClick}}>
             <Nav  type="primary" embeddable>
               <Nav.Item icon="Item">Nav Item 1</Nav.Item>
               <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
@@ -105,7 +105,7 @@ class App extends Component {
           <div className="my-trigger-nav" onClick={this.btnClick}> toggle </div>
           </Shell.Navigation>
 
-          <Shell.LocalNavigation>
+          <Shell.LocalNavigation className="dasdfa">
             <Nav embeddable>
               <Nav.SubNav label="Local Nav1">
                 <Item>Local Nav1</Item>
@@ -117,6 +117,11 @@ class App extends Component {
                 <Item>Local Nav3</Item>
               </Nav.SubNav>
               <Item>Local Nav4</Item>
+              <Item>Local Nav5</Item>
+              <Item>Local Nav6</Item>
+              <Item>Local Nav7</Item>
+              <Item>Local Nav8</Item>
+               <Item>Local Nav4</Item>
               <Item>Local Nav5</Item>
               <Item>Local Nav6</Item>
               <Item>Local Nav7</Item>
@@ -180,20 +185,10 @@ ReactDOM.render((
   height: 32px;
   background: #555;
 }
-.root {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+
 .iframe-hack {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  overflow: auto;
+  width: 100%;
+  height: 500px;
 }
 .fusion-shell-action .next-icon {
   margin: 0 30px;

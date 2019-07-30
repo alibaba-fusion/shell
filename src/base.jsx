@@ -33,7 +33,7 @@ export default function Base(props) {
         }
 
         componentWillReceiveProps(nextProps) {
-            this.props.onCollapseChange(nextProps.collapse);
+            // this.props.onCollapseChange(nextProps.collapse);
         }
 
         render() {

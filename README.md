@@ -17,6 +17,7 @@
         <Shell.ToolDockItem />
 </Shell>
 ````
+
 其中 `<Shell.Content />` 采用Grid布局， 其他均为 Flex布局
 
 ## API
@@ -31,25 +32,25 @@
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠(折叠成只有icon状态)   | Boolean         | false     |
 | direction  | 方向<br><br>**可选值**:<br>'hoz', 'ver'    | Enum         |  hoz    |
-| triggerProps | trigger参数        | Object           | {} |
+| onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
 
 ### Shell.LocaleNavigation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）    | Boolean         | false     |
-| triggerProps | trigger参数        | Object           | {} |
+| onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
 
 ### Shell.ToolDock
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）   | Boolean         | false     |
-| triggerProps | trigger参数        | Object           | {} |
+| onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
 
 ### Shell.Ancillary
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）   | Boolean         | false     |
-| triggerProps | trigger参数        | Object           | {} |
+| onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
 
 ## Config配置项(待视觉稿提供后调整)
 
