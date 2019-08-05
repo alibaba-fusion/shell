@@ -6,12 +6,14 @@
     <Shell.Branding /> Box(row)
     <Shell.Navigation/>
     <Shell.Action /> Box(row)
+
+    <Shell.MultiTask /> Box(row)
     <Shell.LocaleNavigation /> Box(column)
 
     <Shell.AppBar /> Box(column)
     <Shell.Content /> Grid
     <Shell.Footer /> Box(column)
-    
+
     <Shell.Ancillary /> Box(column)
     <Shell.ToolDock /> Box(column)
         <Shell.ToolDockItem />
@@ -62,6 +64,12 @@
   - divider (bottom-border-color, bottom-border-size)
   - navigation-margin
   - navigation-alignment
+- MultiTask (Fixed)
+  - height
+  - background
+  - shadow
+  - padding(l, r)
+  - divider (bottom-border-color, bottom-border-size)
 - Navigation (Fixed)
   - width(ver)
   - mini-width (ver)

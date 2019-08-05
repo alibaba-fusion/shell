@@ -14,7 +14,7 @@ export default function ShellBase(props) {
     
         static propTypes = {
             prefix: PropTypes.string,
-            device: PropTypes.oneOf(['phone', 'pad', 'desktop']),
+            device: PropTypes.oneOf(['phone', 'tablet', 'desktop']),
             scrollHideHeader: PropTypes.bool,
         }
     
@@ -140,6 +140,9 @@ export default function ShellBase(props) {
                             }
                             layout.header[mark] = child;
                             break;
+                        case 'MultiTask':
+                            layout.taskHeader = child;
+                            break;
                         case 'LocalNavigation':
                             if (!layout[mark]) {
                                 layout[mark] = [];
@@ -225,17 +228,24 @@ export default function ShellBase(props) {
             // 如果存在垂直模式的 Navigation, 则需要在 Branding 上出现 trigger
             if (needNavigationTrigger) {
                 const branding = layout.header.Branding;
-                
-                const icon = <div key="nav-trigger" className="nav-trigger" onClick={this.toggleNavigation}>
-                    <Icon.Expand />
-                </div>
-                
+                let { trigger } = layout.Navigation.props;
+
+                if ('trigger' in layout.Navigation.props) {
+                    trigger = trigger && React.cloneElement(trigger, {
+                        onClick: this.toggleNavigation
+                    }) || trigger;
+                } else {
+                    trigger = <div key="nav-trigger" className="nav-trigger" onClick={this.toggleNavigation}>
+                        <Icon.Expand />
+                    </div>;
+                }
+
                 if (!branding) {
-                    layout.header.Branding = icon;
+                    layout.header.Branding = trigger;
                 } else {
                     layout.header.Branding = React.cloneElement(branding, {
                     }, [
-                            icon,
+                            trigger,
                             branding.props.children
                         ]
                     );
@@ -245,26 +255,56 @@ export default function ShellBase(props) {
             // 如果存在 toolDock, 则需要在 Action 上出现 trigger
             if (needDockTrigger) {
                 const action = layout.header.Action;
-                const icon = <div key="dock-trigger" className="dock-trigger" onClick={this.toggleToolDock}>
-                    <Icon.Add />
-                </div>;
+                let { trigger } = layout.ToolDock.props;
+
+                if ('trigger' in layout.ToolDock.props) {
+                    trigger = trigger && React.cloneElement(trigger, {
+                        onClick: this.toggleToolDock
+                    }) || trigger;
+                } else {
+                    trigger = <div key="dock-trigger" className="dock-trigger" onClick={this.toggleToolDock}>
+                        <Icon.Add />
+                    </div>;
+                }
     
                 if (!action) {
-                    layout.header.Action = icon;
+                    layout.header.Action = trigger;
                 } else {
                     layout.header.Action = React.cloneElement(action, {
                     }, [
                             action.props.children,
-                            icon,
+                            trigger,
                         ]
                     );
                 }
             }
     
-            let headerDom = [], contentArr = [], innerArr = [];
+            let headerDom = [], contentArr = [], innerArr = [], taskHeaderDom = null;
+
+            if (layout.taskHeader) {
+                const taskHeaderCls = classnames({
+                    [`${prefix}shell-task-header`]: true,
+                });
+
+                taskHeaderDom = <section key="task-header" className={taskHeaderCls}>
+                    {layout.taskHeader}
+                </section>
+            }
     
             // 按照dom结构，innerArr 包括 LocalNavigation content Ancillary
             if (layout.LocalNavigation) {
+                let { trigger } = layout.LocalNavigation.props;
+
+                if ('trigger' in layout.LocalNavigation.props) {
+                    trigger = trigger && React.cloneElement(trigger, {
+                        onClick: this.toggleLocalNavigation
+                    }) || trigger;
+                } else {
+                    trigger = <div key="local-nav-trigger" className="local-nav-trigger aside-trigger" onClick={this.toggleLocalNavigation}>
+                        <Icon.ArrowRight />
+                    </div>;
+                }
+
                 const localeNavCls = classnames(asideCls, {
                     [`${prefix}aside-localnavigation`]: true,
                 });
@@ -276,9 +316,7 @@ export default function ShellBase(props) {
                                 <div key="wrapper" className={`${prefix}shell-content-wrapper`}>
                                     {layout.LocalNavigation.props.children}
                                 </div>,
-                                <div key="local-nav-trigger" className="local-nav-trigger aside-trigger" onClick={this.toggleLocalNavigation}>
-                                    <Icon.ArrowRight />
-                                </div>
+                                trigger
                             ])
                         }
                     </aside>
@@ -294,6 +332,18 @@ export default function ShellBase(props) {
             }
     
             if (layout.Ancillary) {
+                let { trigger } = layout.Ancillary.props;
+
+                if ('trigger' in layout.Ancillary.props) {
+                    trigger = trigger && React.cloneElement(trigger, {
+                        onClick: this.toggleAncillary
+                    }) || trigger;
+                } else {
+                    trigger = <div key="ancillary-trigger" className="ancillary-trigger aside-trigger" onClick={this.toggleAncillary}>
+                        <Icon.ArrowRight />
+                    </div>;
+                }
+
                 const ancillaryCls = classnames(asideCls, {
                     [`${prefix}aside-ancillary`]: true,
                 });
@@ -305,9 +355,7 @@ export default function ShellBase(props) {
                                 <div key="wrapper" className={`${prefix}shell-content-wrapper`}>
                                     {layout.Ancillary.props.children}
                                 </div>,
-                                <div key="ancillary-trigger" className="ancillary-trigger aside-trigger" onClick={this.toggleAncillary}>
-                                    <Icon.ArrowRight />
-                                </div>
+                                trigger
                             ])
                         }
 
@@ -362,6 +410,7 @@ export default function ShellBase(props) {
 
             return <section className={cls} >
                 {headerDom}
+                {taskHeaderDom}
                 <section className={mainCls}>
                     {contentArr}
                 </section>

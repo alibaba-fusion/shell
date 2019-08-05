@@ -14,6 +14,7 @@ export default function Base(props) {
             collapse: PropTypes.bool,
             miniable: PropTypes.bool,
             Component: PropTypes.string,
+            trigger: PropTypes.node,
             triggerProps: PropTypes.object,
             /**
              * 弹层显示或隐藏时触发的回调函数

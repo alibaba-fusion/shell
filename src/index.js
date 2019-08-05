@@ -5,7 +5,7 @@ const Shell = ShellBase({
   componentName: 'Shell'
 });
 
-['Branding', 'Navigation', 'Action', 'LocalNavigation', 'AppBar', 'Content', 'Footer', 'Ancillary', 'ToolDock', 'ToolDockItem'].forEach(key => {
+['Branding', 'Navigation', 'Action', 'MultiTask', 'LocalNavigation', 'AppBar', 'Content', 'Footer', 'Ancillary', 'ToolDock', 'ToolDockItem'].forEach(key => {
   Shell[key] = Base({
     componentName: key
   });

@@ -10,7 +10,7 @@ importStyle: true
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Shell from '@alifd/shell';
-import { Menu, Search, Icon, Nav, Breadcrumb, Card } from '@alifd/next';
+import { Menu, Search, Icon, Nav, Breadcrumb, Card, Tab } from '@alifd/next';
 
 import '@alifd/theme-shell/dist/next.css';
 
@@ -51,7 +51,7 @@ class App extends Component {
     } else if (width > 1280) {
       device = 'desktop';
     } else {
-      device = 'pad'
+      device = 'tablet'
     }
 
     if (!(device === this.state.device)) {
@@ -88,12 +88,19 @@ class App extends Component {
           </Shell.Navigation>
           <Shell.Action>
             <Icon type="ic_tongzhi" />
-            <img src="https://cdog01.alibaba-inc.com/aliwork/tUd4i7IDM8%2FuALhbY3H72kbPrqsVgoZ2GiVxZLXTfxB%2B91Z5dVJX5JSCGrUYBbnp?e=eIxQ5SR3%2BXODJpmDlfdb6A%3D%3D" className="avatar" alt="用户头像" />
+            <img src="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png" className="avatar" alt="用户头像" />
             <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
           </Shell.Action>
 
-          <Shell.Navigation collapse={this.state.navcollapse}  triggerProps={{onClick: this.triggerClick}}>
-            <Nav  type="primary" embeddable>
+          <Shell.MultiTask>
+            <Tab>
+              <Tab.Item title="Home" key="1"></Tab.Item>
+              <Tab.Item title="Documentation" key="2"></Tab.Item>
+              <Tab.Item title="Help" key="3"></Tab.Item>
+            </Tab>
+          </Shell.MultiTask>
+          <Shell.Navigation trigger={<span>dasfa</span>} collapse={this.state.navcollapse} >
+            <Nav type="primary" embeddable>
               <Nav.Item icon="Item">Nav Item 1</Nav.Item>
               <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
               <Nav.Item icon="Item2">Nav Item 3</Nav.Item>
@@ -105,7 +112,7 @@ class App extends Component {
           <div className="my-trigger-nav" onClick={this.btnClick}> toggle </div>
           </Shell.Navigation>
 
-          <Shell.LocalNavigation className="dasdfa">
+          <Shell.LocalNavigation>
             <Nav embeddable>
               <Nav.SubNav label="Local Nav1">
                 <Item>Local Nav1</Item>
