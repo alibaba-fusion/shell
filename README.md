@@ -30,11 +30,14 @@
 | scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
 
 ### Shell.Navigation
+向子组件透传 isCollapse 的Context，表示当前是否处于折叠状态
+
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠(折叠成只有icon状态)   | Boolean         | false     |
 | direction  | 方向<br><br>**可选值**:<br>'hoz', 'ver'    | Enum         |  hoz    |
 | onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
+
 
 ### Shell.LocaleNavigation
 | 参数                  | 说明          | 类型              | 默认值              |

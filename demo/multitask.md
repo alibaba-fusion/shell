@@ -16,28 +16,54 @@ import '@alifd/theme-shell/dist/next.css';
 
 const { SubNav, Item, Group, Divider } = Nav;
 
-const tab1 = <Shell>
-    <Shell.LocalNavigation>
-        <Nav embeddable>
-            <Nav.SubNav label="Local Nav1">
-                <Item>Local Nav1</Item>
-            </Nav.SubNav>
-            <Nav.SubNav label="Local Nav2">
-                <Item>Local Nav2</Item>
-            </Nav.SubNav>
-            <Nav.SubNav label="Local Nav3">
-                <Item>Local Nav3</Item>
-            </Nav.SubNav>
-              <Item>Local Nav4</Item>
-              <Item>Local Nav5</Item>
-              <Item>Local Nav6</Item>
-              <Item>Local Nav7</Item>
-              <Item>Local Nav8</Item>
-              <Item>Local Nav4</Item>
-              <Item>Local Nav5</Item>
-              <Item>Local Nav6</Item>
-              <Item>Local Nav7</Item>
-              <Item>Local Nav8</Item>
+class App extends Component {
+
+  render() {
+    return (
+      <div className="root">
+        <Shell className="iframe-hack">
+          <Shell.Branding>
+            <div className="rectangular"></div>
+            <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
+          </Shell.Branding>
+          <Shell.Navigation direction="hoz">
+            <Search key="2" shape="simple" type="dark" palceholder="Search" style={{width: '200px'}}/>
+          </Shell.Navigation>
+          <Shell.Action>
+            <Icon type="ic_tongzhi" />
+            <img src="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png" className="avatar" alt="用户头像" />
+            <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
+          </Shell.Action>
+
+          <Shell.MultiTask>
+            <Tab>
+              <Tab.Item title="Home" key="1"></Tab.Item>
+              <Tab.Item title="Documentation" key="2"></Tab.Item>
+              <Tab.Item title="Help" key="3"></Tab.Item>
+            </Tab>
+          </Shell.MultiTask>
+
+          <Shell.LocalNavigation>
+            <Nav embeddable>
+                <Nav.SubNav label="Local Nav1">
+                    <Item>Local Nav1</Item>
+                </Nav.SubNav>
+                <Nav.SubNav label="Local Nav2">
+                    <Item>Local Nav2</Item>
+                </Nav.SubNav>
+                <Nav.SubNav label="Local Nav3">
+                    <Item>Local Nav3</Item>
+                </Nav.SubNav>
+                <Item>Local Nav4</Item>
+                <Item>Local Nav5</Item>
+                <Item>Local Nav6</Item>
+                <Item>Local Nav7</Item>
+                <Item>Local Nav8</Item>
+                <Item>Local Nav4</Item>
+                <Item>Local Nav5</Item>
+                <Item>Local Nav6</Item>
+                <Item>Local Nav7</Item>
+                <Item>Local Nav8</Item>
             </Nav>
           </Shell.LocalNavigation>
 
@@ -66,52 +92,6 @@ const tab1 = <Shell>
               <Icon type="account" />              
             </Shell.ToolDockItem>
           </Shell.ToolDock>
-</Shell>
-
-const tab2 = <Shell>
-          <Shell.Content>
-            <div style={{minHeight: 1200, background: '#fff'}}></div>
-          </Shell.Content>
-          <Shell.Footer>
-            <span>Alibaba Fusion</span>
-            <span>@ 2019 Alibaba Piecework 版权所有</span>
-          </Shell.Footer>
-</Shell>
-
-const tab3 = <Shell>
-
-          <Shell.Footer>
-            <span>Alibaba Fusion</span>
-            <span>@ 2019 Alibaba Piecework 版权所有</span>
-          </Shell.Footer>
-</Shell>
-
-class App extends Component {
-
-  render() {
-    return (
-      <div className="root">
-        <Shell className="iframe-hack">
-          <Shell.Branding>
-            <div className="rectangular"></div>
-            <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
-          </Shell.Branding>
-          <Shell.Navigation direction="hoz">
-            <Search key="2" shape="simple" type="dark" palceholder="Search" style={{width: '200px'}}/>
-          </Shell.Navigation>
-          <Shell.Action>
-            <Icon type="ic_tongzhi" />
-            <img src="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png" className="avatar" alt="用户头像" />
-            <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
-          </Shell.Action>
-
-          <Shell.MultiTask>
-            <Tab>
-              <Tab.Item title="Home" key="1">{tab1}</Tab.Item>
-              <Tab.Item title="Documentation" key="2">{tab2}</Tab.Item>
-              <Tab.Item title="Help" key="3">{tab3}</Tab.Item>
-            </Tab>
-          </Shell.MultiTask>
         </Shell>
       </div>
     );
@@ -146,7 +126,7 @@ ReactDOM.render((
 
 .iframe-hack {
   width: 100%;
-  height: 300px;
+  height: 500px;
 }
 .fusion-shell-action .next-icon {
   margin: 0 30px;

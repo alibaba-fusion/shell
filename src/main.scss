@@ -68,6 +68,7 @@
         border-bottom: $shell-multitask-divider;
         box-shadow: $shell-multitask-shadow;
         padding: 0 $shell-multitask-paddingLeft;
+        overflow: auto;
     }
 
     &-sub-main {

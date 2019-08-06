@@ -29,6 +29,18 @@ export default function Base(props) {
             onCollapseChange: () => {}
         };
 
+        static childContextTypes = {
+            isCollapse: PropTypes.bool,
+        };
+
+        getChildContext() {
+            const { collapse } = this.props;
+
+            return {
+                isCollapse: collapse
+            };
+        }
+
         constructor(props) {
             super(props);
         }
