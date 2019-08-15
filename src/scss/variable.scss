@@ -2,7 +2,7 @@
 @charset "UTF-8";
 
 $css-prefix: 'fusion-';
-$shell-prefix: '.#{$css-prefix}shell';
+$shell-prefix: '.#{$css-prefix}shell'!default;
 // animation
 $ease: cubic-bezier(0.4, 0, 0.2, 1);
 

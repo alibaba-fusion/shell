@@ -115,9 +115,9 @@ export default function ShellBase(props) {
         renderShell = (props) => {
             const {
                 prefix,
-                sizeMap,
                 children,
                 className,
+                ...others
             } = props;
     
 
@@ -408,7 +408,7 @@ export default function ShellBase(props) {
                 return contentArr;
             }
 
-            return <section className={cls} >
+            return <section className={cls} {...others}>
                 {headerDom}
                 {taskHeaderDom}
                 <section className={mainCls}>
