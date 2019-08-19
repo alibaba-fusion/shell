@@ -1,6 +1,6 @@
 {
   "name": "@alifd/shell",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "layout shell",
   "files": [
     "demo/",
@@ -25,7 +25,6 @@
     "react-lifecycles-compat": "^3.0.4"
   },
   "devDependencies": {
-    "@alifd/next": "^1.17.0",
     "@alifd/theme-shell": "^0.2.0",
     "ice-plugin-component": "^0.1.1",
     "ice-plugin-fusion": "^0.1.4",
@@ -35,7 +34,8 @@
     "react-dom": "^16.3.0"
   },
   "peerDependencies": {
-    "react": "^16.3.0"
+    "react": "^16.3.0",
+    "@alifd/next": "^1.x"
   },
   "componentConfig": {
     "name": "shell",

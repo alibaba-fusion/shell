@@ -15,14 +15,22 @@ export default function ShellBase(props) {
         static propTypes = {
             prefix: PropTypes.string,
             device: PropTypes.oneOf(['phone', 'tablet', 'desktop']),
-            scrollHideHeader: PropTypes.bool,
         }
     
         static defaultProps = {
             prefix: 'fusion-',
             device: 'desktop',
-            scrollHideHeader: true,
         };
+
+        static childContextTypes = {
+            prefix: PropTypes.string,
+        };
+
+        getChildContext() {
+            return {
+                prefix: this.props.prefix,
+            };
+        }
     
         constructor(props) {
             super(props);

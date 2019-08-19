@@ -33,11 +33,15 @@ export default function Base(props) {
             isCollapse: PropTypes.bool,
         };
 
+        static contextTypes = {
+            prefix: PropTypes.string,
+        };
+
         getChildContext() {
             const { collapse } = this.props;
 
             return {
-                isCollapse: collapse
+                isCollapse: collapse,
             };
         }
 
@@ -63,18 +67,20 @@ export default function Base(props) {
                 ...others
             } = this.props;
 
+            const basePrefix = this.context.prefix || prefix;
+
             let Tag = Component;
 
             const cls = classnames({
-                [`${prefix}shell-${componentName.toLowerCase()}`]: true,
-                [`${prefix}shell-collapse`]: !!collapse,
-                [`${prefix}shell-mini`]: miniable,
+                [`${basePrefix}shell-${componentName.toLowerCase()}`]: true,
+                [`${basePrefix}shell-collapse`]: !!collapse,
+                [`${basePrefix}shell-mini`]: miniable,
                 [className]: !!className,
             });
 
             let newChildren = children;
             if (componentName === 'Content') {
-                newChildren = <div className={`${prefix}shell-content-inner`}>{children}</div>;
+                newChildren = <div className={`${basePrefix}shell-content-inner`}>{children}</div>;
             }
 
             if (componentName === 'Page') {
