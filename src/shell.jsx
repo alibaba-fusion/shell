@@ -23,12 +23,12 @@ export default function ShellBase(props) {
         };
 
         static childContextTypes = {
-            prefix: PropTypes.string,
+            shellPrefix: PropTypes.string,
         };
 
         getChildContext() {
             return {
-                prefix: this.props.prefix,
+                shellPrefix: this.props.prefix,
             };
         }
     
@@ -313,12 +313,12 @@ export default function ShellBase(props) {
                     </div>;
                 }
 
-                const localeNavCls = classnames(asideCls, {
+                const localNavCls = classnames(asideCls, {
                     [`${prefix}aside-localnavigation`]: true,
                 });
     
                 innerArr.push(
-                    <aside key="localnavigation" className={localeNavCls}>
+                    <aside key="localnavigation" className={localNavCls}>
                         {
                             React.cloneElement(layout.LocalNavigation, {}, [
                                 <div key="wrapper" className={`${prefix}shell-content-wrapper`}>

@@ -34,7 +34,7 @@ export default function Base(props) {
         };
 
         static contextTypes = {
-            prefix: PropTypes.string,
+            shellPrefix: PropTypes.string,
         };
 
         getChildContext() {

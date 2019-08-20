@@ -8,7 +8,7 @@
     <Shell.Action /> Box(row)
 
     <Shell.MultiTask /> Box(row)
-    <Shell.LocaleNavigation /> Box(column)
+    <Shell.LocalNavigation /> Box(column)
 
     <Shell.AppBar /> Box(column)
     <Shell.Content /> Grid
@@ -26,7 +26,7 @@
 ### Shell
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
-| device             | 预设屏幕宽度，会影响`Navigation` `LocaleNavigation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
+| device             | 预设屏幕宽度，会影响`Navigation` `LocalNavigation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
 | scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
 
 ### Shell.Navigation
@@ -39,7 +39,7 @@
 | onCollapseChange | 组件显示或折叠时触发的回调函数        | Function           | () =>{} |
 
 
-### Shell.LocaleNavigation
+### Shell.LocalNavigation
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | collapse   | 是否折叠（完全收起）    | Boolean         | false     |
@@ -80,7 +80,7 @@
   - background 
   - padding(t, b) 
   - shadow
--  LocaleNavigation (Fixed)
+-  LocalNavigation (Fixed)
   - width
   - background 
   - padding(t, b) 
