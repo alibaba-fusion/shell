@@ -14,6 +14,7 @@ export default function Base(props) {
             collapse: PropTypes.bool,
             miniable: PropTypes.bool,
             Component: PropTypes.string,
+            trigger: PropTypes.node,
             triggerProps: PropTypes.object,
             /**
              * 弹层显示或隐藏时触发的回调函数
@@ -28,12 +29,28 @@ export default function Base(props) {
             onCollapseChange: () => {}
         };
 
+        static childContextTypes = {
+            isCollapse: PropTypes.bool,
+        };
+
+        static contextTypes = {
+            shellPrefix: PropTypes.string,
+        };
+
+        getChildContext() {
+            const { collapse } = this.props;
+
+            return {
+                isCollapse: collapse,
+            };
+        }
+
         constructor(props) {
             super(props);
         }
 
         componentWillReceiveProps(nextProps) {
-            this.props.onCollapseChange(nextProps.collapse);
+            // this.props.onCollapseChange(nextProps.collapse);
         }
 
         render() {
@@ -50,18 +67,20 @@ export default function Base(props) {
                 ...others
             } = this.props;
 
+            const basePrefix = this.context.prefix || prefix;
+
             let Tag = Component;
 
             const cls = classnames({
-                [`${prefix}shell-${componentName.toLowerCase()}`]: true,
-                [`${prefix}shell-collapse`]: !!collapse,
-                [`${prefix}shell-mini`]: miniable,
+                [`${basePrefix}shell-${componentName.toLowerCase()}`]: true,
+                [`${basePrefix}shell-collapse`]: !!collapse,
+                [`${basePrefix}shell-mini`]: miniable,
                 [className]: !!className,
             });
 
             let newChildren = children;
             if (componentName === 'Content') {
-                newChildren = <div className={`${prefix}shell-content-inner`}>{children}</div>;
+                newChildren = <div className={`${basePrefix}shell-content-inner`}>{children}</div>;
             }
 
             if (componentName === 'Page') {

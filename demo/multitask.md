@@ -1,6 +1,6 @@
 ---
-title: Simple Usage
-order: 1
+title: Multi Task
+order: 2
 importStyle: true
 ---
 
@@ -16,69 +16,12 @@ import '@alifd/theme-shell/dist/next.css';
 
 const { SubNav, Item, Group, Divider } = Nav;
 
-;(function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-             requestAnimationFrame(function() {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
-})();
-
 class App extends Component {
-  state = {}
-  componentDidMount() {
-    this.handleResize(window.innerWidth);
-
-    window.addEventListener("optimizedResize", (e) => {
-      this.handleResize(e.target.window.innerWidth);
-    });
-  }
-
-  handleResize = width => {
-    if (width < 680) {
-      device = 'phone';
-    } else if (width > 1280) {
-      device = 'desktop';
-    } else {
-      device = 'tablet'
-    }
-
-    if (!(device === this.state.device)) {
-      this.setState({
-        device
-      });
-    }
-  }
-
-
-  btnClick = () => {
-    this.setState({
-      navcollapse: !this.state.navcollapse
-    });
-  }
-
-  triggerClick = (e, currentCollapse) => {
-    console.log(e, currentCollapse)
-    this.setState({
-      navcollapse: !currentCollapse
-    });
-  }
 
   render() {
     return (
       <div className="root">
-        <Shell className={"iframe-hack"} style={{color: 'red'}} device={this.state.device}>
+        <Shell className="iframe-hack">
           <Shell.Branding>
             <div className="rectangular"></div>
             <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
@@ -92,41 +35,35 @@ class App extends Component {
             <span style={{marginLeft: 10, color: '#FFF'}}>MyName</span>
           </Shell.Action>
 
-          
-          <Shell.Navigation style={{color: 'red'}} trigger={null} collapse={this.state.navcollapse} >
-            <Nav type="primary" embeddable>
-              <Nav.Item icon="Item">Nav Item 1</Nav.Item>
-              <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
-              <Nav.Item icon="Item2">Nav Item 3</Nav.Item>
-              <Nav.Item icon="Item3">Nav Item 4</Nav.Item>
-              <Nav.Item icon="Item4">Nav Item 5</Nav.Item>
-              <Nav.Item icon="Item5">Nav Item 6</Nav.Item>
-              <Nav.Item icon="Item6">Nav Item 7</Nav.Item>
-          </Nav>
-          <div className="my-trigger-nav" onClick={this.btnClick}> toggle </div>
-          </Shell.Navigation>
+          <Shell.MultiTask>
+            <Tab>
+              <Tab.Item title="Home" key="1"></Tab.Item>
+              <Tab.Item title="Documentation" key="2"></Tab.Item>
+              <Tab.Item title="Help" key="3"></Tab.Item>
+            </Tab>
+          </Shell.MultiTask>
 
           <Shell.LocalNavigation>
             <Nav embeddable>
-              <Nav.SubNav label="Local Nav1">
-                <Item>Local Nav1</Item>
-              </Nav.SubNav>
-              <Nav.SubNav label="Local Nav2">
-                <Item>Local Nav2</Item>
-              </Nav.SubNav>
-              <Nav.SubNav label="Local Nav3">
-                <Item>Local Nav3</Item>
-              </Nav.SubNav>
-              <Item>Local Nav4</Item>
-              <Item>Local Nav5</Item>
-              <Item>Local Nav6</Item>
-              <Item>Local Nav7</Item>
-              <Item>Local Nav8</Item>
-               <Item>Local Nav4</Item>
-              <Item>Local Nav5</Item>
-              <Item>Local Nav6</Item>
-              <Item>Local Nav7</Item>
-              <Item>Local Nav8</Item>
+                <Nav.SubNav label="Local Nav1">
+                    <Item>Local Nav1</Item>
+                </Nav.SubNav>
+                <Nav.SubNav label="Local Nav2">
+                    <Item>Local Nav2</Item>
+                </Nav.SubNav>
+                <Nav.SubNav label="Local Nav3">
+                    <Item>Local Nav3</Item>
+                </Nav.SubNav>
+                <Item>Local Nav4</Item>
+                <Item>Local Nav5</Item>
+                <Item>Local Nav6</Item>
+                <Item>Local Nav7</Item>
+                <Item>Local Nav8</Item>
+                <Item>Local Nav4</Item>
+                <Item>Local Nav5</Item>
+                <Item>Local Nav6</Item>
+                <Item>Local Nav7</Item>
+                <Item>Local Nav8</Item>
             </Nav>
           </Shell.LocalNavigation>
 

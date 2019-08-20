@@ -34,6 +34,7 @@ export function getCollapseMap(device) {
         case 'phone':
             break;
         case 'pad':
+        case 'tablet':
             map = ['ToolDock'];
             break;
         case 'desktop':
@@ -71,6 +72,7 @@ export function getSiderSize(device, sizesMap) {
             map = ['ToolDockHeader'];
             break;
         case 'pad':
+        case 'tablet':
             map = ['Navigation', 'ToolDock', 'NavigationCollapse'];
             break;
         case 'desktop':
