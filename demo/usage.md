@@ -78,7 +78,7 @@ class App extends Component {
   render() {
     return (
       <div className="root">
-        <Shell className={"iframe-hack"} style={{color: 'red'}} device={this.state.device}>
+        <Shell className={"iframe-hack"} device={this.state.device}>
           <Shell.Branding>
             <div className="rectangular"></div>
             <span style={{marginLeft: 10, color: '#FFF'}}>App Name</span>
@@ -93,7 +93,7 @@ class App extends Component {
           </Shell.Action>
 
           
-          <Shell.Navigation style={{color: 'red'}} trigger={null} collapse={this.state.navcollapse} >
+          <Shell.Navigation trigger={null} collapse={this.state.navcollapse} >
             <Nav type="primary" embeddable>
               <Nav.Item icon="Item">Nav Item 1</Nav.Item>
               <Nav.Item icon="Item1">Nav Item 2</Nav.Item>
