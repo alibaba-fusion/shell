@@ -377,7 +377,7 @@ export default function ShellBase(props) {
                 {
                     Object.keys(layout.header).map(key => 
                         {
-                            return React.cloneElement(layout.header[key], {
+                            return layout.header[key] && React.cloneElement(layout.header[key], {
                                 key,
                             })
                         })
@@ -413,7 +413,9 @@ export default function ShellBase(props) {
             });
 
             if (componentName === 'Page') {
-                return contentArr;
+                return <section className={mainCls}>
+                    {contentArr}
+                </section>
             }
 
             return <section className={cls} {...others}>
