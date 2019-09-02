@@ -27,7 +27,6 @@
 | 参数                  | 说明          | 类型              | 默认值              |
 | -------------------- | ------------ | ----------------- | ------------------ |
 | device             | 预设屏幕宽度，会影响`Navigation` `LocalNavigation` `Ancillary`等是否占据空间<br><br>**可选值**:<br>'phone', 'tablet', 'desktop'     | Enum         |  desktop    |
-| scrollHideHeader   | Header滚动时隐藏    | Boolean         | false     |
 
 ### Shell.Navigation
 向子组件透传 isCollapse 的Context，表示当前是否处于折叠状态
